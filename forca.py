@@ -3,6 +3,11 @@ import random
 def jogar():
     
     apresentacao()
+    nivel = int(input("(1) Fácil  (2) Medio  (3) Dificil : "))
+    validar_entrada_nivel(nivel)
+
+
+
     palavra_secreta = carregar_palavra_secreta()
     palavra = ["_" for letra in palavra_secreta]
 
@@ -26,7 +31,7 @@ def jogar():
             tentativas += 1
             desenha_forca(tentativas)
 
-        enforcado = tentativas == 6
+        enforcado = tentativas == 7
         acertou = "_" not in palavra
         print(palavra)
 
@@ -42,6 +47,16 @@ def apresentacao():
     print("*******************************")
     print("Bem vindo ao jogo de Forca!")
     print("*******************************")
+    print("Qual nivel de dificuldade você quer?")
+
+def validar_entrada_nivel(nivel):
+    niveis = [1, 2, 3]
+
+    while not nivel in niveis :
+        print("*******************************")
+        print("Nivel não conhecido, por favor digite o nivel correto!")
+        nivel = int(input("(1) Fácil  (2) Medio  (3) Dificil : "))
+
 
 def carregar_palavra_secreta():
     arquivo = open("palavras.txt", "r")
