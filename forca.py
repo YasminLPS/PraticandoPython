@@ -1,33 +1,29 @@
+import random
 
 def jogar():
-    print("*******************************")
-    print("Bem vindo ao jogo de Forca!")
-    print("*******************************")
+    
+    apresentacao()
+    palavra_secreta = carregar_palavra_secreta()
+    palavra = ["_" for letra in palavra_secreta]
 
-    palavra_forca = "maça".upper()
-    palavra = ["_" for letra in palavra_forca]
-    chutes = []
+    print(palavra[0:])
 
     enforcado = False
     acertou = False
     tentativas = 0
-
-    print(palavra[0:])
+    chutes_lista = []
 
     while not enforcado and not acertou:
 
-        letra_chute = input("Digite uma letra: ")
-        chute = letra_chute.upper().strip()
-        chutes.append(chute)
-        index = 0
-        tentativas += 1
+        chute = pede_letra()
 
-        print(f"Chutes: {chutes}")
+        chutes_lista.append(chute)
+        print(f"Chutes: {chutes_lista}")
 
-        for letra in palavra_forca:
-            if chute == letra:
-                palavra[index] = chute
-            index += 1
+        if chute in palavra_secreta:
+            adiciona_letra_na_linha(palavra_secreta, chute, palavra)
+        else:
+            tentativas += 1
 
         enforcado = tentativas == 6
         acertou = "_" not in palavra
@@ -40,6 +36,39 @@ def jogar():
         print("Enforcado! Você perdeu!")
     print("Fim do Jogo!")
 
+
+
+def apresentacao():
+    print("*******************************")
+    print("Bem vindo ao jogo de Forca!")
+    print("*******************************")
+
+def carregar_palavra_secreta():
+    arquivo = open("palavras.txt", "r")
+    palavras_forca = []
+
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras_forca.append(linha)
+
+    arquivo.close()
+
+    numero = random.randrange(0, len(palavras_forca))
+    palavras_secreta = palavras_forca[numero].upper()
+    
+    return palavras_secreta
+
+def pede_letra():
+    letra_chute = input("Digite uma letra: ")
+    chute = letra_chute.upper().strip()
+    return chute
+
+def adiciona_letra_na_linha(palavra_secreta, chute, palavra):
+    index = 0
+    for letra in palavra_secreta:
+        if chute == letra:
+            palavra[index] = letra
+        index += 1
 
 if __name__ == "__main__":
     jogar()
