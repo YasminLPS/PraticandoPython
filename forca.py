@@ -4,13 +4,14 @@ def jogar():
     
     apresentacao()
     nivel = int(input("(1) Fácil  (2) Medio  (3) Dificil : "))
+    print()
     validar_entrada_nivel(nivel)
 
 
 
-    palavra_secreta = carregar_palavra_secreta()
-    palavra = ["_" for letra in palavra_secreta]
+    palavra_secreta = carregar_palavra_secreta(nivel)
 
+    palavra = ["_" for letra in palavra_secreta]
     print(palavra[0:])
 
     enforcado = False
@@ -44,6 +45,7 @@ def jogar():
 
 
 def apresentacao():
+    print()
     print("*******************************")
     print("Bem vindo ao jogo de Forca!")
     print("*******************************")
@@ -56,11 +58,19 @@ def validar_entrada_nivel(nivel):
         print("*******************************")
         print("Nivel não conhecido, por favor digite o nivel correto!")
         nivel = int(input("(1) Fácil  (2) Medio  (3) Dificil : "))
+        print()
 
 
-def carregar_palavra_secreta():
-    arquivo = open("palavras.txt", "r")
+def carregar_palavra_secreta(nivel):
     palavras_forca = []
+
+    if nivel == 1:
+        arquivo = open("palavras.txt", "r")
+    elif nivel == 2:
+        arquivo = open("palavrasMedias.txt", "r", encoding="utf8")
+    elif nivel == 3:
+        arquivo = open("palavrasDificeis.txt", "r", encoding="utf8")
+
 
     for linha in arquivo:
         linha = linha.strip()
@@ -86,6 +96,8 @@ def adiciona_letra_na_linha(palavra_secreta, chute, palavra):
         index += 1
 
 def desenha_forca(erros):
+    print()
+    print("*******************************")
     print("  _______     ")
     print(" |/      |    ")
 
@@ -133,9 +145,12 @@ def desenha_forca(erros):
 
     print(" |            ")
     print("_|___         ")
+    print("*******************************")
     print()
 
 def imprime_mensagem_perdedor(palavra_secreta):
+    print()
+    print("*******************************")
     print("Puxa, você foi enforcado!")
     print("A palavra era {}".format(palavra_secreta))
     print("    _______________         ")
@@ -154,8 +169,11 @@ def imprime_mensagem_perdedor(palavra_secreta):
     print("   \_             _/       ")
     print("     \_         _/         ")
     print("       \_______/           ")
+    print("*******************************")
 
 def imprime_mensagem_vencedor():
+    print()
+    print("*******************************")
     print("Parabéns, você ganhou!")
     print("       ___________      ")
     print("      '._==_==_=_.'     ")
@@ -167,6 +185,7 @@ def imprime_mensagem_vencedor():
     print("           ) (          ")
     print("         _.' '._        ")
     print("        '-------'       ")
+    print("*******************************")
 
 if __name__ == "__main__":
     jogar()

@@ -2,6 +2,7 @@ import forca
 import adivinhacao
 
 def escolherJogo():
+    print()
     print("*******************************")
     print("******Escolha o seu jogo!******")
     print("*******************************")
